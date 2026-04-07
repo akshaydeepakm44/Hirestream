@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  /* Google & Linear Inspired Palette */
+  --color-primary-50: #f5f7ff;
+  --color-primary-100: #ebf0fe;
+  --color-primary-200: #ced9fd;
+  --color-primary-300: #a3b9fb;
+  --color-primary-400: #728ef7;
+  --color-primary-500: #4f6ef2; /* Core Primary */
+  --color-primary-600: #3b52e8;
+  --color-primary-700: #2f41d1;
+  --color-primary-800: #2936aa;
+  --color-primary-900: #263188;
+
+  --color-accent-amber: #f59e0b;
+  --color-accent-emerald: #10b981;
+  --color-accent-rose: #f43f5e;
+  --color-accent-indigo: #6366f1;
+  
+  --color-background: #ffffff;
+  --color-foreground: #020617;
+  --color-card: #ffffff;
+  --color-card-foreground: #020617;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #020617;
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #3b82f6;
+
+  /* Modern Linear Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+  /* Glassmorphism utility */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+
+  --font-sans: "Inter", "system-ui", "sans-serif";
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.75rem;
+  --radius-3xl: 1rem;
+}
+
+/* Custom Components */
+.glass-card {
+  @apply bg-white border border-slate-200 shadow-sm rounded-lg;
+}
+
+.btn-modern {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium 
+         transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.btn-primary-modern {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium 
+         transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none
+         bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 
+         focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+}
+
+.btn-outline-modern {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium 
+         transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none
+         border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 
+         hover:border-slate-400 focus:ring-2 focus:ring-slate-200;
+}
+
+.btn-ghost-modern {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium 
+         transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none
+         text-slate-600 hover:bg-slate-100/80 hover:text-slate-900;
+}
+
+.input-modern {
+  @apply w-full bg-white border border-slate-300 rounded-md px-3 py-2 text-sm
+         placeholder:text-slate-400 focus:ring-2 focus:ring-primary-500/20 
+         focus:border-primary-500 transition-all outline-none;
+}
+
+.sidebar-link {
+  @apply flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors;
+}
+
+/* Dark Mode Overrides */
+.dark {
+  --color-background: #020617;
+  --color-foreground: #f8fafc;
+  --color-card: #0f172a;
+  --color-card-foreground: #f8fafc;
+  --color-popover: #0f172a;
+  --color-popover-foreground: #f8fafc;
+  --color-border: #1e293b;
+  --color-input: #1e293b;
+  
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  
+  --color-slate-50: #0f172a;
+  --color-slate-100: #1e293b;
+  --color-slate-200: #334155;
+  --color-slate-300: #475569;
+  --color-slate-400: #64748b;
+  --color-slate-500: #94a3b8;
+  --color-slate-600: #cbd5e1;
+  --color-slate-700: #e2e8f0;
+  --color-slate-800: #f1f5f9;
+  --color-slate-900: #f8fafc;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-none;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom Page Transitions */
+.page-enter { opacity: 0; transform: translateY(8px); }
+.page-enter-active { opacity: 1; transform: translateY(0); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* Custom Scrollbar for dashboards */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

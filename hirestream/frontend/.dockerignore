@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+.git
+.gitignore
+*.png
+*.jpg
+*.jpeg
+*.svg
+README.md
+Dockerfile

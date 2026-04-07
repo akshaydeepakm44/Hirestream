@@ -1,0 +1,9 @@
+# Ignore absolutely everything
+*
+# But allow what we need
+!requirements.txt
+!app/
+!app/**/*.py
+# Keep Docker files
+!Dockerfile
+!.dockerignore

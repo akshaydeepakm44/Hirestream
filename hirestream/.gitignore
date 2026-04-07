@@ -1,0 +1,28 @@
+# Environments
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+*.db
+backend/hierstream.db
+backend/uploads/
+backend/data/
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/
+.DS_Store
+
+# Docker
+.docker_temp/
+
+# Logs
+*.log

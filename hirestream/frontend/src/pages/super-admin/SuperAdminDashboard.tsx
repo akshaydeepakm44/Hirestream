@@ -7,7 +7,7 @@ import {
     Send, Inbox
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { api } from '../../api/client';
+import { api, safeArray } from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -134,10 +134,10 @@ export const SuperAdminDashboard = () => {
                 api.get('/admin/all-recruiters'),
                 api.get('/admin/contact-requests'),
             ]);
-            setStats(statsRes.data);
-            setPendingRequests(pendingRes.data || []);
-            setAllRecruiters(recruitersRes.data || []);
-            setInquiries(inquiriesRes.data || []);
+            setStats(statsRes.data || { stats: { companies: 0, candidates: 0, hms: 0, rms: 0, requests: 0 }, hm_analytics: [], rm_analytics: [], companies_overview: [] });
+            setPendingRequests(safeArray(pendingRes.data));
+            setAllRecruiters(safeArray(recruitersRes.data));
+            setInquiries(safeArray(inquiriesRes.data));
         } catch (err) {
             console.error("Failed to fetch admin data", err);
             setStats({ stats: { companies: 0, candidates: 0, hms: 0, rms: 0, requests: 0 }, hm_analytics: [], rm_analytics: [], companies_overview: [] });

@@ -3,7 +3,7 @@ import { Bell, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatTimeAgo } from '../utils/timeAgo';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../api/client';
+import { api, safeArray } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { Notification } from '../types';
 
@@ -18,9 +18,9 @@ export const NotificationDropdown = () => {
     const fetchNotifications = async () => {
         try {
             const { data } = await api.get('/notifications');
-            setNotifications(data);
+            setNotifications(safeArray(data));
             const countRes = await api.get('/notifications/unread-count');
-            setUnreadCount(countRes.data.count);
+            setUnreadCount(countRes.data?.count || 0);
         } catch (error) {
             console.error('Error fetching notifications:', error);
         }

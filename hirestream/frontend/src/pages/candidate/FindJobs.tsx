@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../api/client';
+import { api, safeArray } from '../../api/client';
 import { MapPin, Briefcase, Search, CheckCircle } from 'lucide-react';
 import { JobApplicationDrawer } from './JobApplicationDrawer';
 
@@ -10,8 +10,11 @@ export const FindJobs = () => {
 
     useEffect(() => {
         api.get('/candidates/jobs')
-            .then(res => setJobs(res.data))
-            .catch(console.error);
+            .then(res => setJobs(safeArray(res.data)))
+            .catch(err => {
+                console.warn('Failed to fetch candidate jobs:', err);
+                setJobs([]);
+            });
     }, []);
 
     return (

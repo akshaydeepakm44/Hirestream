@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { api } from '../api/client';
+import { api, safeArray } from '../api/client';
 import { MapPin, Briefcase, Zap, Target, BarChart, Send, Mail, CheckCircle2 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -18,8 +18,21 @@ export const LandingPage = () => {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-        // Fetch public jobs
-        api.get('/public/jobs').then(res => setJobs(res.data)).catch(console.error);
+        let isMounted = true;
+        // Fetch public jobs with safety guard
+        api.get('/public/jobs')
+            .then(res => {
+                if (isMounted) {
+                    setJobs(safeArray(res.data));
+                }
+            })
+            .catch(err => {
+                console.warn('[HireStream] Public jobs could not be fetched:', err);
+                if (isMounted) {
+                    setJobs([]);
+                }
+            });
+        return () => { isMounted = false; };
     }, []);
 
     useEffect(() => {
@@ -192,7 +205,7 @@ export const LandingPage = () => {
                 </div>
 
                 <div className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                    {jobs.length > 0 ? jobs.map(job => (
+                    {Array.isArray(jobs) && jobs.length > 0 ? jobs.map(job => (
                         <div key={job.id} className="min-w-[85vw] md:min-w-[400px] flex-none snap-start">
                             <Card className="h-full p-8 border-slate-200 hover:border-primary-500 transition-colors group rounded-3xl flex flex-col cursor-pointer shadow-sm hover:shadow-xl" onClick={() => navigate(`/jobs/${job.id}`)}>
                                 <div className="flex justify-between items-start mb-6">

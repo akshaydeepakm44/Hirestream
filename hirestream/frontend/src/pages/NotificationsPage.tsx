@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { api } from '../api/client';
+import { api, safeArray } from '../api/client';
 import { 
     Bell, 
     Clock, 
@@ -50,9 +50,10 @@ export const NotificationsPage = () => {
         setLoading(true);
         try {
             const { data } = await api.get('/notifications?limit=200');
-            setNotifications(data);
+            setNotifications(safeArray(data));
         } catch (e) {
             console.error('Failed to fetch notifications', e);
+            setNotifications([]);
         } finally {
             setLoading(false);
         }

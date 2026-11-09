@@ -84,7 +84,9 @@ export const JobApplicationDrawer = ({ job, onClose, onSuccess }: JobApplication
             try {
                 const { data: u } = await api.get('/auth/me');
                 setProfileData(prev => ({ ...prev, full_name: u.full_name }));
-            } catch (e) {}
+            } catch (err) {
+                console.debug('Fallback user info not available:', err);
+            }
         }
     };
 

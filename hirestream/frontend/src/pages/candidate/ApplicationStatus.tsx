@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../api/client';
+import { api, safeArray } from '../../api/client';
 import { Check, Clock, X, Building, Activity } from 'lucide-react';
 
 const PIPELINE_STAGES = [
@@ -16,8 +16,11 @@ export const ApplicationStatus = () => {
 
     useEffect(() => {
         api.get('/candidates/applications/me')
-            .then(res => setApps(res.data))
-            .catch(console.error);
+            .then(res => setApps(safeArray(res.data)))
+            .catch(err => {
+                console.warn('Failed to fetch application statuses:', err);
+                setApps([]);
+            });
     }, []);
 
     const getStageIndex = (status: string) => {

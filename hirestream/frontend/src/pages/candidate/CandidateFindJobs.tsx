@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { api } from '../../api/client';
+import { api, safeArray } from '../../api/client';
 import { Requisition } from '../../types';
 import { 
     MapPin, 
@@ -33,15 +33,15 @@ export const CandidateFindJobs = () => {
         const fetchData = async () => {
             try {
                 const [reqs, apps] = await Promise.all([
-                    api.get('/candidates/jobs'),
-                    api.get('/candidates/applications/me')
+                    api.get('/candidates/jobs').catch(() => ({ data: [] })),
+                    api.get('/candidates/applications/me').catch(() => ({ data: [] }))
                 ]);
                 
-                const appsData = Array.isArray(apps.data) ? apps.data : (apps.data.results || []);
+                const appsData = safeArray(apps.data);
                 const appliedIds = appsData.map((a: any) => Number(a.requisition_id));
                 setAppliedJobIds(appliedIds);
 
-                const jobsData = reqs.data.map((j: any) => ({
+                const jobsData = safeArray(reqs.data).map((j: any) => ({
                     ...j,
                     job_description: j.job_description || j.description,
                     required_skills: j.required_skills || j.skills,

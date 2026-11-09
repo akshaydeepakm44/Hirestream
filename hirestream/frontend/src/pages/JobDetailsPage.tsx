@@ -34,11 +34,16 @@ export const JobDetailsPage = () => {
         setLoading(true);
         api.get(`/public/jobs/${id}`)
            .then(res => {
-               setJob(res.data);
+               if (typeof res.data === 'object' && res.data !== null && 'id' in res.data) {
+                   setJob(res.data);
+               } else {
+                   setJob(null);
+               }
                setLoading(false);
            })
            .catch(err => {
                console.error(err);
+               setJob(null);
                setLoading(false);
            });
         

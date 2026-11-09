@@ -21,7 +21,7 @@ import { cn } from '../../utils/cn';
 export const CandidateAssessments = () => {
     const [assessments, setAssessments] = useState<Assessment[]>([]);
     const [submittingId, setSubmittingId] = useState<number | null>(null);
-    const [submissionType, setSubmissionType] = useState<Number | null>(null);
+    const [submissionType, setSubmissionType] = useState<number | null>(null);
     const [submissionData, setSubmissionData] = useState({ file: null as File | null, link: '' });
     const [isLoading, setIsLoading] = useState(true);
 

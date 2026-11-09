@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { api } from '../../api/client';
+import { api, safeArray } from '../../api/client';
 import { 
     Check, 
     Building2, 
@@ -42,8 +42,11 @@ export const CandidateApplications = () => {
 
     useEffect(() => {
         api.get('/candidates/applications/me')
-            .then(res => setApps(res.data))
-            .catch(console.error)
+            .then(res => setApps(safeArray(res.data)))
+            .catch(err => {
+                console.warn('Failed to load applications:', err);
+                setApps([]);
+            })
             .finally(() => setLoading(false));
     }, []);
 

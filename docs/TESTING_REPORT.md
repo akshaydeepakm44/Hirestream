@@ -12,11 +12,11 @@
 | Test Module | Tests Executed | Passed | Failed | Execution Time | Coverage Area |
 |---|:---:|:---:|:---:|:---:|---|
 | `tests/test_ats_service.py` | 4 | 4 | 0 | 0.85s | TF-IDF scoring, skill taxonomy extraction, boundary clamping |
-| `tests/test_config_resilience.py` | 3 | 3 | 0 | 0.22s | CORS string parsing, JSON list parsing, DB URL normalization |
+| `tests/test_config_resilience.py` | 4 | 4 | 0 | 0.25s | CORS string parsing, JSON list parsing, environment variable parsing, DB URL normalization |
 | `tests/test_health.py` | 2 | 2 | 0 | 0.45s | System status probe, database connectivity verification, API root |
 | `tests/test_public_routes.py` | 2 | 2 | 0 | 0.38s | Public job board listing, contact form Pydantic validation |
 | `tests/test_security_auth.py` | 3 | 3 | 0 | 0.65s | Bcrypt password hashing, JWT token lifecycle, invalid bearer rejection |
-| **Total** | **14** | **14** | **0** | **34.35s** (incl. cold imports) | Full-stack regression coverage |
+| **Total** | **15** | **15** | **0** | **15.66s** (incl. cold imports) | Full-stack regression coverage |
 
 ---
 
@@ -65,3 +65,4 @@ tests/test_security_auth.py::test_jwt_invalid_token PASSED               [100%]
 3. **API & Health Monitoring:**
    - Verified that `GET /health` conducts an active `SELECT 1` ping against the database and returns `"database": "connected"`.
    - Verified that malformed contact form payloads return standard HTTP 422 with structured field-level error messages.
+

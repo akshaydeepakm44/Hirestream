@@ -1,3 +1,4 @@
+import os
 from app.core.config import Settings
 
 def test_cors_origins_comma_separated_parsing():
@@ -16,6 +17,14 @@ def test_cors_origins_json_list_parsing():
     )
     assert settings.ALLOWED_ORIGINS == [
         "https://app.vercel.app",
+        "http://localhost:5173"
+    ]
+
+def test_cors_origins_from_env_variable(monkeypatch):
+    monkeypatch.setenv("ALLOWED_ORIGINS", "https://hirestream.vercel.app,http://localhost:5173")
+    settings = Settings()
+    assert settings.ALLOWED_ORIGINS == [
+        "https://hirestream.vercel.app",
         "http://localhost:5173"
     ]
 

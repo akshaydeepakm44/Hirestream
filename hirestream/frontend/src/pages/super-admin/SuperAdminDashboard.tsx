@@ -4,7 +4,7 @@ import {
     CheckCircle, XCircle, Bell, LogOut, TrendingUp, 
     Mail, Shield, UserCheck, BarChart3,
     Trash2, AlertTriangle, UserX, MessageSquare, 
-    ChevronRight, Send, Clock, Inbox
+    Send, Inbox
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../../api/client';

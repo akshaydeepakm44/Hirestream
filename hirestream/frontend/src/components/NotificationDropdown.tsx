@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Bell, Clock, ArrowRight } from 'lucide-react';
+import { Bell, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatTimeAgo } from '../utils/timeAgo';
 import { useNavigate } from 'react-router-dom';
